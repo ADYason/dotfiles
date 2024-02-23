@@ -112,12 +112,14 @@ tooltip label{
 }
 
 #custom-launch_wofi {
+    border-radius: 10px 0px 0px 10px;
     color: #89b4fa;
     margin-left: 10px;
     border-right: 0px;
 }
 
 #pulseaudio {
+    border-radius: 10px 0px 0px 10px;
     color: #89b4fa;
     border-left: 0px;
     border-right: 0px;

@@ -8,7 +8,7 @@
     "height": 50,
     "modules-left": ["custom/launch_wofi","wlr/workspaces","cpu","memory","disk","hyprland/window"],
     "modules-center": ["custom/lock_screen","custom/updates","clock","custom/power_btn"],
-    "modules-right": ["temperature","custom/power_profile","battery","backlight","pulseaudio","pulseaudio#microphone","tray","custom/weather","custom/light_dark"],
+    "modules-right": ["pulseaudio","pulseaudio#microphone","tray","custom/weather"],
     
     "hyprland/window": {
         "format": "{}"
@@ -23,7 +23,7 @@
     "custom/lock_screen": {
         "format": "",
         "on-click": "sh -c '(sleep 0.5s; swaylock)' & disown",
-        "tooltip": false
+        "tooltip": true
     },
 
     "custom/light_dark": {
@@ -125,19 +125,6 @@
         "on-scroll-up": "brightnessctl set 1%+",
         "on-scroll-down": "brightnessctl set 1%-",
         "min-length": 6
-    },
-
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 20
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-alt": "{time} {icon}",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
 
     "pulseaudio": {
