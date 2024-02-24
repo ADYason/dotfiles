@@ -1,0 +1,46 @@
+[colors.bright]
+black = "#000000"
+blue = "#005500"
+cyan = "#55ff55"
+green = "#55ff55"
+magenta = "#55ff55"
+red = "#55ff55"
+white = "#00cc00"
+yellow = "#55ff55"
+
+[colors.cursor]
+cursor = "#00cc00"
+text = "#000000"
+
+[colors.normal]
+black = "#000000"
+blue = "#005500"
+cyan = "#00cc00"
+green = "#00cc00"
+magenta = "#55ff55"
+red = "#55ff55"
+white = "#00cc00"
+yellow = "#00cc00"
+
+[colors.primary]
+background = "#000000"
+foreground = "#00cc00"
+
+[font]
+size = 17.0
+
+[font.bold]
+family = "FiraCodeNerdFont"
+style = "Bold"
+
+[font.italic]
+family = "FiraCodeNerdFont"
+style = "Italic"
+
+[font.normal]
+family = "FiraCodeNerdFont"
+style = "Regular"
+
+[window]
+dynamic_title = true
+opacity = 0.0 
