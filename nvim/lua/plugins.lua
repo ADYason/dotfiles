@@ -1,9 +1,8 @@
 local Plug = vim.fn['plug#']
 vim.call("plug#begin")
 Plug 'echasnovski/mini.statusline'  -- lower bar
-Plug 'ryanoasis/vim-devicons'  -- both icons
-Plug 'kyazdani42/nvim-web-devicons'
-Plug ('ms-jpq/chadtree', {branch = 'chad', ['do'] = 'python3 -m chadtree deps'}) -- good tree
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-treesitter/nvim-treesitter' -- treesitter
 Plug 'folke/lsp-colors.nvim' -- lsp highlitin
 Plug ('catppuccin/nvim', { as = 'catppuccin' })
@@ -26,8 +25,11 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'onsails/lspkind-nvim'
 Plug 'nvim-treesitter/playground'
 Plug ('VonHeikemen/lsp-zero.nvim', {branch = 'v3.x'})
+Plug ('numirias/semshi' , {['do'] = ':UpdateRemotePlugins'})
+
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
 vim.call('plug#end')
-require('nvim-web-devicons').setup({ default = true; })
 require("lsp-colors").setup({
     Error = "#db4b4b",
     Warning = "#e0af68",
@@ -38,3 +40,4 @@ require('mini.statusline').setup()
 require('neosolarized').setup({
   background_set = false,
 })
+require('nvim-tree').setup()

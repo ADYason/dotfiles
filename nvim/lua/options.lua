@@ -11,5 +11,4 @@ vim.g.loaded_netrwPlugin = 1
 vim.cmd('set nobackup')
 vim.opt.completeopt="longest"
 vim.o.clipboard = "unnamedplus"
-vim.api.nvim_create_autocmd({"VimEnter"}, {command = ":CHADopen"})
 vim.opt.fillchars = {eob = " "}  -- removes tildas
