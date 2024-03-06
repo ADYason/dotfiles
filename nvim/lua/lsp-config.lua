@@ -13,8 +13,8 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
   vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
   vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-  vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-  vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+  vim.keymap.set("n", "<C-k>", function() vim.lsp.buf.references() end, opts)
+  vim.keymap.set("n", "<F2>", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
@@ -51,6 +51,39 @@ require('mason-lspconfig').setup({
 	before_init = function(_, config)
 	  config.settings.python.pythonPath = get_python_path(config.root_dir)
         end,
+      })
+    end,
+    ruff_lsp = function()
+      require'lspconfig'.ruff_lsp.setup({
+        init_options = {
+	  settings = {
+	    args = {},
+	  }
+	},
+        commands = {
+    RuffAutofix = {
+      function()
+        vim.lsp.buf.execute_command {
+          command = 'ruff.FixAll',
+          arguments = {
+            { uri = vim.uri_from_bufnr(0) },
+          },
+        }
+      end,
+      description = 'Ruff: Fix all auto-fixable problems',
+    },
+    RuffOrganizeImports = {
+      function()
+        vim.lsp.buf.execute_command {
+          command = 'ruff.applyOrganizeImports',
+          arguments = {
+            { uri = vim.uri_from_bufnr(0) },
+          },
+        }
+      end,
+      description = 'Ruff: Format imports',
+    },
+  },
       })
     end,
   }

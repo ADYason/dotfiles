@@ -60,8 +60,17 @@ return require('packer').startup(function(use)
       {'L3MON4D3/LuaSnip'},
     }
   }
+  use {'jose-elias-alvarez/null-ls.nvim'}
   use { 'numirias/semshi', ['do'] =':UpdateRemotePlugins' }
   use { 'mfussenegger/nvim-dap', requires = {'rcarriga/nvim-dap-ui'}}
+  use {
+    "kdheepak/lazygit.nvim",
+      -- optional for floating window border decoration
+      requires = {
+	"nvim-lua/plenary.nvim",
+      },
+  }
+  use {"folke/todo-comments.nvim"}
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then

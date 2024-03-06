@@ -1,7 +1,7 @@
 require"options"
 require"plugins"
-require"keymaps"
 require"startup_require"
+require"keymaps"
 require"lsp-config"
 require"treesitter"
 require"dap-config"

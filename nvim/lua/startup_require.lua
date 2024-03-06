@@ -9,4 +9,5 @@ require("lsp-colors").setup({
   })
 require('mini.statusline').setup()
 require('nvim-tree').setup()
-
+require'telescope-config'
+require'todo-comments'.setup()
