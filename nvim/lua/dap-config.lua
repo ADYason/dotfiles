@@ -1,7 +1,8 @@
-dap = require("dap")
-local util = require('lspconfig/util')
+local dap = require("dap")
 local opts = { noremap=true, silent=true }
-map = vim.keymap.set
+local map = vim.keymap.set
+local util = require('lspconfig/util')
+local path = util.path
 
 map('n', 'B', dap.toggle_breakpoint, opts) -- set/remove breakpoint
 map('n', '<leader>c', dap.continue, opts)
@@ -10,21 +11,22 @@ map('n', 'F', dap.step_over, opts) -- dont know what is it
 map('n', '<leader>F', dap.step_into, opts) -- step into (a function)
 map('n', '<leader>u', dap.step_out, opts) -- step out (of a function)
 
-dap.repl.omnifunc = vim.lsp.omnifunc
-
 local getVenv = function()
-  local cwd = vim.fn.getcwd()
-  local envPath = os.getenv("VIRTUAL_ENV")
-  if vim.fn.executable(envPath .. '/bin/python') == 1 then
-    return envPath .. '/bin/python'
-  elseif vim.fn.executable(cwd .. '/venv/bin/python') == 1 then
-    return cwd .. '/venv/bin/python'
-  elseif vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
-    return cwd .. '/.venv/bin/python'
-  else
-    return '/usr/bin/python'
+  if vim.env.VIRTUAL_ENV then
+    return path.join(vim.env.VIRTUAL_ENV, 'bin', 'python')
   end
+  -- Find and use virtualenv via poetry in workspace directory.
+  local match = vim.fn.glob(path.join(vim.fn.getcwd(), 'poetry.lock'))
+  if match ~= '' then
+    local venv = vim.fn.trim(vim.fn.system('poetry env info -p 2> /dev/null'))
+    return path.join(venv, 'bin', 'python')
+  end
+
+  -- Fallback to system Python.
+   return vim.fn.exepath('python3') or vim.fn.exepath('python') or 'python'
 end
+
+dap.repl.omnifunc = vim.lsp.omnifunc
 
 dap.adapters.cppdbg = {
   id = 'cppdbg',
@@ -87,27 +89,23 @@ end
 
 dap.configurations.python = {
   {
+    type = 'python';
+    request = 'launch';
+    name = "Launch file";
+    program = "${file}"; -- This configuration will launch the current file if used.
+    pythonPath = getVenv()
+  },
+  {
     type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
     request = 'launch';
     name = "proj";
-    
     program = "src"; --util.root_pattern('pyproject.toml')() .. '/src/__main__.py'; -- This configuration will launch the current file if used.
-    pythonPath = getVenv;
-  },
-  -- this was an attempt to run tests in debugger
-  -- {
-  --   type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
-  --   request = 'launch';
-  --   name = "test";
-  --   
-  --   program = "-m pytest"; --util.root_pattern('pyproject.toml')() .. '/src/__main__.py'; -- This configuration will launch the current file if used.
-  --   pythonPath = getVenv;
-  -- },
+    pythonPath = getVenv();
+  }
 }
 
---i will never remember this many hotkeys
 
-dapui = require("dapui")
+local dapui = require("dapui")
 dapui.setup()
 -- this anon function shit is needed to jump into floating windows once they are open
 map('n', '<leader>R', dapui.toggle, opts) -- open many dapui windows to see my stupid code working
