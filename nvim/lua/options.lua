@@ -12,3 +12,9 @@ vim.cmd('set nobackup')
 vim.opt.completeopt="longest"
 vim.o.clipboard = "unnamedplus"
 vim.opt.fillchars = {eob = " "}  -- removes tildas
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function(args)
+    require("conform").format({ bufnr = args.buf })
+  end,
+})

@@ -11,3 +11,12 @@ require('mini.statusline').setup()
 require('nvim-tree').setup()
 require'telescope-config'
 require'todo-comments'.setup()
+require("conform").setup({
+  formatters_by_ft = {
+    lua = { "stylua" },
+    -- Conform will run multiple formatters sequentially
+    python = { "ruff_fix", "ruff_format" },
+    -- Use a sub-list to run only the first available formatter
+    javascript = { { "prettierd", "prettier" } },
+  },
+})

@@ -61,7 +61,6 @@ return require('packer').startup(function(use)
     }
   }
   use {'jose-elias-alvarez/null-ls.nvim'}
-  use { 'numirias/semshi', ['do'] =':UpdateRemotePlugins' }
   use { 'mfussenegger/nvim-dap', requires = {'rcarriga/nvim-dap-ui'}}
   use {
     "kdheepak/lazygit.nvim",
@@ -71,6 +70,12 @@ return require('packer').startup(function(use)
       },
   }
   use {"folke/todo-comments.nvim"}
+  use({
+    "stevearc/conform.nvim",
+    config = function()
+      require("conform").setup()
+    end,
+  })
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then
