@@ -185,11 +185,6 @@ _G.packer_plugins = {
     path = "/home/yaroslav/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  semshi = {
-    loaded = true,
-    path = "/home/yaroslav/.local/share/nvim/site/pack/packer/start/semshi",
-    url = "https://github.com/numirias/semshi"
-  },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,
     path = "/home/yaroslav/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",

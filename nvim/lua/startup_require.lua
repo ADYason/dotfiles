@@ -7,8 +7,8 @@ require("lsp-colors").setup({
     Information = "#0db9d7",
     Hint = "#10B981"
   })
-require('mini.statusline').setup()
 require('nvim-tree').setup()
+require('mini.statusline').setup()
 require'telescope-config'
 require'todo-comments'.setup()
 require("conform").setup({
