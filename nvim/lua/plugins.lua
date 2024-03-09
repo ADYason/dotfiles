@@ -8,7 +8,6 @@ local ensure_packer = function()
   end
   return false
 end
-
 local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
@@ -29,12 +28,7 @@ return require('packer').startup(function(use)
       'nvim-tree/nvim-web-devicons',
     }
   }
-  use {
-    'svrana/neosolarized.nvim',
-    requires = {
-      'tjdevries/colorbuddy.nvim',
-    }
-  }
+  use 'Mofiqul/vscode.nvim'
   -- telescope
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.x',
@@ -76,6 +70,16 @@ return require('packer').startup(function(use)
       require("conform").setup()
     end,
   })
+  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+    require("toggleterm").setup()
+  end}
+  use {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+        require("nvim-autopairs").setup {}
+    end
+  }
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if packer_bootstrap then
