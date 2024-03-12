@@ -17,9 +17,9 @@ require("conform").setup({
 vim.o.background = "dark"
 local c = require("vscode.colors").get_colors()
 require("vscode").setup({
-	transparent = false,
+	transparent = true,
 	italic_comments = true,
-	disable_nvimtree_bg = false,
+	disable_nvimtree_bg = true,
 	underline_links = true,
 	color_overrides = {
 		vscLineNumber = "#FFFFFF",
@@ -35,3 +35,4 @@ require("gitblame").setup({
 	enabled = false,
 	message_when_not_committed = "	Закоммить, собака!",
 })
+require("vgit").setup({ settings = { live_blame = { enabled = false }, authorship_code_lens = { enabled = false } } })
