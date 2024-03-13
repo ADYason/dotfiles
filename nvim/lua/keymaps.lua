@@ -1,6 +1,8 @@
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>e", "<cmd>:NvimTreeToggle<CR>")
 vim.keymap.set("n", "<leader>new", ":e tmp.")
+vim.keymap.set("i", "<C-Del>", "<C-W>")
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
