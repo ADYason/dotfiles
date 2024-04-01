@@ -56,7 +56,7 @@ return require("packer").startup(function(use)
 		},
 	})
 	use({ "jose-elias-alvarez/null-ls.nvim" })
-	use({ "mfussenegger/nvim-dap", requires = { "rcarriga/nvim-dap-ui" } })
+	use({ "mfussenegger/nvim-dap", requires = { { "rcarriga/nvim-dap-ui" }, { "nvim-neotest/nvim-nio" } } })
 	use({
 		"kdheepak/lazygit.nvim",
 		-- optional for floating window border decoration
