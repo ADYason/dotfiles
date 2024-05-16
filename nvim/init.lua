@@ -1,7 +1,8 @@
-require"options"
-require"plugins"
-require"startup_require"
-require"keymaps"
-require"lsp-config"
-require"treesitter"
-require"dap-config"
+require("options")
+require("plugins")
+require("startup_require")
+require("keymaps")
+require("lsp-config")
+require("treesitter")
+require("dap-config")
+require("harpoon-keymaps")
