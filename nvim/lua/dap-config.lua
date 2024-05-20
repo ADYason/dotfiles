@@ -116,7 +116,7 @@ map("v", "<leader>E", function()
 	dapui.eval()
 end, opts) -- evaluate expression in chunks with visual mode
 map("n", "<leader>r", function()
-	dapui.float_element("repl")
+	dapui.float_element("repl", { width = 200, heigh = 100 })
 end, opts) -- open floating repl - sounds convenient
 map("n", "<leader>fq", function()
 	dapui.float_element("breakpoints")
