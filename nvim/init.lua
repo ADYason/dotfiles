@@ -1,6 +1,6 @@
 require("options")
 require("plugins")
-require("startup_require")
+require("startup-require")
 require("keymaps")
 require("lsp-config")
 require("treesitter")
