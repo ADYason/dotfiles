@@ -104,6 +104,9 @@ alias "d"="sudo docker"
 alias "fix-ssh"="eval `ssh-agent -s` \ssh-add ~/.ssh/id_rsa"
 alias "z"="zellij"
 alias "rfix"="ruff chech --fix --unsafe-fixes ."
+export PATH="/home/yaroslav/.local/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+cvim() { cd "$1" && nvim .;}
