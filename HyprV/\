@@ -22,6 +22,7 @@ exec-once = mako
 exec-once = blueman-applet
 exec-once = nm-applet --indicator
 exec-once = wl-paste --watch cliphist store
+exec-once = telegram-desktop
 exec = ~/.config/HyprV/hyprv_util setbg
 
 # For all categories, see https://wiki.hyprland.org/Configuring/Variables/
@@ -40,7 +41,6 @@ input {
 
     sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
 }
-
 
 general {
     # See https://wiki.hyprland.org/Configuring/Variables/ for more
@@ -143,20 +143,22 @@ windowrulev2 = opacity 0.8 0.6,class:^(wofi)$
 $mainMod = SUPER
 
 # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-bind = CTRL_ALT, T, exec, kitty  #open the terminal
-bind = $mainMod, F4, killactive, # close the active window
+bind = CTRL_ALT, T, exec, kitty  # open the terminal
+bind = ALT, F4, killactive, # close the active window
 bind = $mainMod, L, exec, swaylock # Lock the screen
-bind = $mainMod, M, exec, wlogout --protocol layer-shell # show the logout window
+bind = $mainMod, Q, exec, wlogout --protocol layer-shell # show the logout window
 bind = $mainMod SHIFT, M, exit, # Exit Hyprland all together no (force quit Hyprland)
 bind = $mainMod, E, exec, thunar # Show the graphical file browser
 bind = $mainMod, V, togglefloating, # Allow a window to float
-bind = $mainMod, SPACE, exec, wofi # Show the graphical app launcher
+bind = $mainMod, M, exec, wofi # Show the graphical app launcher
+bind = $mainMod, B, exec, blueman-manager, # bluetooth manager
 bind = $mainMod, P, pseudo, # dwindle
 bind = $mainMod, J, togglesplit, # dwindle
-bind = $mainMod, B, exec, blueman-manager, # bluetooth manager
 bind = $mainMod, S, exec, grim -g "$(slurp)" - | swappy -f - # take a screenshot
-bind = ALT, V, exec, cliphist list | wofi -dmenu | cliphist decode | wl-copy # open clipboard manager
-bind = $mainMod, T, exec, ~/.config/HyprV/hyprv_util vswitch # switch HyprV version
+bind = $mainMod, F, fullscreen
+bind = $mainMod, N, exec, swaync-client -t
+
+
 
 # Move focus with mainMod + arrow keys
 bind = $mainMod, left, movefocus, l
@@ -200,3 +202,4 @@ bindm = $mainMod, mouse:273, resizewindow
 # source = ~/.config/hypr/myColors.conf
 source = ~/.config/hypr/media-binds.conf
 source = ~/.config/hypr/env_var.conf
+source = ~/.config/hypr/env_var_nvidia.conf
