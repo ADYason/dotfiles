@@ -12,6 +12,9 @@ require("conform").setup({
 		lua = { "stylua" },
 		python = { "ruff_fix", "ruff_format" },
 		javascript = { { "prettierd", "prettier" } },
+		go = {
+			"gofmt",
+		},
 	},
 })
 vim.o.background = "dark"

@@ -5,7 +5,6 @@ local h = require("harpoon")
 local ht = require("harpoon.term")
 local h_ui = require("harpoon.ui")
 local hm = require("harpoon.mark")
-local hcmd = require("harpoon.cmd-ui")
 local htl = require("harpoon.tabline")
 local t = require("tabline")
 
@@ -55,9 +54,15 @@ local function nav_prev()
 	h_ui.nav_file(current_index)
 end
 
-htl.setup({})
-map("n", "H", nav_prev, opts)
-map("n", "L", nav_next, opts)
+local harpoon_settings = {
+	save_on_toggle = false,
+	save_on_change = true,
+	enter_on_sendcmd = false,
+	tmux_autoclose_windows = false,
+	excluded_filetypes = { "harpoon" },
+	mark_branch = false,
+}
+h.setup(harpoon_settings)
 
 local tabline = "harpoon"
 map("n", "<F3>", function()
@@ -83,16 +88,6 @@ map("n", "<F3>", function()
 	end
 end, opts)
 
-harpoon_settings = {
-	save_on_toggle = false,
-	save_on_change = true,
-	enter_on_sendcmd = false,
-	tmux_autoclose_windows = false,
-	excluded_filetypes = { "harpoon" },
-	mark_branch = false,
-}
-h.setup(harpoon_settings)
-
 -- files ui
 
 map("n", "<leader>m", h_ui.toggle_quick_menu, opts)
@@ -107,59 +102,30 @@ for i = 0, 9, 1 do -- mapping leader + digit to go for files
 	end, opts)
 end
 
--- cmd ui
-map("n", "<leader>T", function()
+-- terminals
+map("n", "<leader>`", function()
 	ht.gotoTerminal({
 		idx = 1,
-		create_with = ":Neomux",
+		create_with = ":ToggleTerm<CR> direction=tab",
 	})
 end, opts)
-map("t", "<leader>T", function()
+map("t", "<leader>`", function()
 	ht.gotoTerminal({
 		idx = 1,
-		create_with = ":Neomux",
-	})
-end, opts)
-map("n", "<leader>Y", function()
-	ht.gotoTerminal({
-		idx = 2,
-		create_with = ":Neomux",
-	})
-end, opts)
-map("t", "<leader>Y", function()
-	ht.gotoTerminal({
-		idx = 2,
-		create_with = ":Neomux",
-	})
-end, opts)
-map("n", "<leader>U", function()
-	ht.gotoTerminal({
-		idx = 3,
-		create_with = ":Neomux",
-	})
-end, opts)
-map("t", "<leader>U", function()
-	ht.gotoTerminal({
-		idx = 3,
-		create_with = ":Neomux",
+		create_with = ":ToggleTerm<CR> direction=tab",
 	})
 end, opts)
 for i = 0, 9, 1 do -- mapping leader + digit to go for terminals
 	map("n", "<leader>t" .. i, function()
 		ht.gotoTerminal({
 			idx = i,
-			create_with = ":Neomux",
+			create_with = ":ToggleTerm<CR> direction=tab",
 		})
 	end, opts)
 	map("t", "<leader>t" .. i, function()
 		ht.gotoTerminal({
 			idx = i,
-			create_with = ":Neomux",
+			create_with = ":ToggleTerm<CR> direction=tab",
 		})
 	end, opts)
 end
--- terminalwise commands
-vim.g.neomux_start_term_split_map = ""
-vim.g.neomux_winjump_map_prefix = "<leader>w"
-vim.g.neomux_exit_term_mode_map = "<C-Space>"
-vim.g.neomux_default_shell = "zsh"

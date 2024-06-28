@@ -10,6 +10,7 @@ map("n", "<leader>x", dap.terminate, opts)
 map("n", "F", dap.step_over, opts)
 map("n", "<leader>F", dap.step_into, opts) -- step into (a function)
 map("n", "<leader>u", dap.step_out, opts) -- step out (of a function)
+map("n", "<leader>B", dap.set_exception_breakpoints, opts)
 
 local getVenv = function()
 	if vim.env.VIRTUAL_ENV then
@@ -103,6 +104,26 @@ dap.configurations.python = {
 	},
 }
 
+require("dap-go").setup({
+	dap_configurations = {
+		{
+			type = "go",
+			name = "Attach remote",
+			mode = "remote",
+			request = "attach",
+		},
+	},
+	delve = {
+		path = "dlv",
+		initialize_timeout_sec = 20,
+		port = "${port}",
+		args = {},
+		build_flags = "",
+		detached = true,
+		cwd = nil,
+	},
+})
+
 local dapui = require("dapui")
 dapui.setup()
 -- this anon function shit is needed to jump into floating windows once they are open
@@ -134,3 +155,35 @@ map("n", "<leader>fe", function()
 	dapui.float_element("scopes")
 	dapui.float_element("scopes")
 end, opts) -- open floating variable scopes pane
+
+require("neotest").setup({
+	adapters = {
+		require("neotest-python")({
+			dap = { justMyCode = false },
+			runner = "pytest",
+			python = getVenv(),
+			pytest_discover_instances = true,
+		}),
+	},
+})
+
+local nt = require("neotest")
+
+map("n", "<leader>nto", function()
+	nt.output.open()
+end, opts)
+map("n", "<leader>ntO", function()
+	nt.output_panel.open()
+end, opts)
+map("n", "<leader>ntr", function()
+	nt.run.run()
+end, opts)
+map("n", "<leader>ntR", function()
+	nt.run.run(vim.fn.expand("%"))
+end, opts)
+map("n", "<leader>ntd", function()
+	nt.run.run({ strategy = "dap" })
+end)
+map("n", "<leader>nts", function()
+	nt.summary.open()
+end, opts)
