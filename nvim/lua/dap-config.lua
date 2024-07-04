@@ -102,6 +102,22 @@ dap.configurations.python = {
 		program = "src", --util.root_pattern('pyproject.toml')() .. '/src/__main__.py'; -- This configuration will launch the current file if used.
 		pythonPath = getVenv(),
 	},
+	{
+		type = "python",
+		request = "launch",
+		name = "Launch file (jmc=f)",
+		program = "${file}", -- This configuration will launch the current file if used.
+		justMyCode = false,
+		pythonPath = getVenv(),
+	},
+	{
+		type = "python", -- the type here established the link to the adapter definition: `dap.adapters.python`
+		request = "launch",
+		name = "proj (jmc=f)",
+		program = "src", --util.root_pattern('pyproject.toml')() .. '/src/__main__.py'; -- This configuration will launch the current file if used.
+		justMyCode = false,
+		pythonPath = getVenv(),
+	},
 }
 
 require("dap-go").setup({
