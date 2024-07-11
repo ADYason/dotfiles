@@ -3,6 +3,8 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export EDITOR="nvim"
+export TASKRC="~/.taskrc"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -102,10 +104,11 @@ source $ZSH/oh-my-zsh.sh
 alias "k"="kubectl"
 alias "d"="sudo docker"
 alias "fix-ssh"="eval `ssh-agent -s` \ssh-add ~/.ssh/id_rsa"
-alias "z"="zellij"
+alias "z"="zellij --layout ~/.config/zellij/layout.kdl"
 alias "rfix"="ruff chech --fix --unsafe-fixes ."
 export PATH="/home/yaroslav/.local/bin:$PATH"
 export PYENV_ROOT="$HOME/.pyenv"
+export GOPRIVATE=git.apsolutions.ru
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 

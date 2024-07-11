@@ -1,0 +1,21 @@
+layout {
+  default_tab_template {
+    pane size=1 {
+      borderless true
+      plugin location="zellij:tab-bar"
+      plugin location="zellij:status-bar"
+    }
+    children
+  }
+  tab name="k9s" {
+    pane command="k9s"
+  }
+  tab name="nvim"
+  tab name="another nvim"
+  tab name="taskwarrior" {
+    pane command="taskwarrior-tui"
+  }
+  tab name="resources"{
+    pane command="btop"
+  }
+}
