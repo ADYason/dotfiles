@@ -119,6 +119,18 @@ dap.configurations.python = {
 		pythonPath = getVenv(),
 	},
 }
+local function get_maingo(workspace)
+	local match = vim.fn.glob(path.join(vim.fn.getcwd(), "*", "main.go"))
+	if match ~= "" then
+		return match
+	end
+	match = vim.fn.glob(path.join(vim.fn.getcwd(), "main.go"))
+	if match ~= "" then
+		return match
+	end
+
+	return vim.fn.input("main go: ", "", "file")
+end
 
 require("dap-go").setup({
 	dap_configurations = {
@@ -127,6 +139,13 @@ require("dap-go").setup({
 			name = "Attach remote",
 			mode = "remote",
 			request = "attach",
+		},
+		{
+			type = "go",
+			name = "maingo",
+			request = "launch",
+			program = get_maingo,
+			buildFlags = "",
 		},
 	},
 	delve = {

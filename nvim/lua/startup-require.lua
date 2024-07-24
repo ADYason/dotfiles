@@ -13,7 +13,9 @@ require("conform").setup({
 		python = { "ruff_fix", "ruff_format" },
 		javascript = { { "prettierd", "prettier" } },
 		go = {
-			"gofmt",
+			"gofumpt",
+			"goimports",
+			"golines",
 		},
 	},
 })

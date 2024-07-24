@@ -36,6 +36,7 @@ lsp_zero.on_attach(function(client, bufnr)
 	vim.keymap.set("i", "<C-h>", function()
 		vim.lsp.buf.signature_help()
 	end, opts)
+	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 end)
 
 -- source https://github.com/neovim/nvim-lspconfig/issues/500#issuecomment-877293306
