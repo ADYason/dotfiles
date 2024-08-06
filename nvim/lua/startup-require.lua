@@ -16,10 +16,12 @@ require("conform").setup({
 			"gofumpt",
 			"goimports",
 			"golines",
+			"gofmt",
 		},
 	},
 })
 vim.o.background = "dark"
+vim.g.loaded_python3_provider = 0 -- i hate python
 local c = require("vscode.colors").get_colors()
 require("vscode").setup({
 	transparent = true,
