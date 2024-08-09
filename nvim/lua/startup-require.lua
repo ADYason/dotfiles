@@ -25,7 +25,7 @@ vim.g.loaded_python3_provider = 0 -- i hate python
 local c = require("vscode.colors").get_colors()
 require("vscode").setup({
 	transparent = true,
-	italic_comments = true,
+	italic_comments = false,
 	disable_nvimtree_bg = true,
 	underline_links = true,
 	color_overrides = {
@@ -56,7 +56,7 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
 end)
 require("ibl").setup({
 	indent = {
-		char = "▏", -- This is a slightly thinner char than the default one, check :help ibl.config.indent.char
+		char = "│",
 		highlight = highlight,
 	},
 	scope = {
