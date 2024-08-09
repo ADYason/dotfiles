@@ -90,7 +90,6 @@ local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup({
 	sources = {
-		{ name = "path" },
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{
@@ -109,9 +108,24 @@ cmp.setup({
 		["<C-Space>"] = cmp.mapping.complete(),
 	}),
 })
+
 cmp.setup.cmdline({ "/", "?" }, {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
 		{ name = "buffer" },
 	},
+})
+
+cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{
+			name = "cmdline",
+			option = {
+				ignore_cmds = { "Man", "!" },
+			},
+		},
+	}),
 })
