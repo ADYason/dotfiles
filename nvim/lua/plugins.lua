@@ -107,6 +107,12 @@ return require("packer").startup(function(use)
 		},
 	}) -- Automatically set up your configuration after cloning packer.nvim
 	use("lukas-reineke/indent-blankline.nvim")
+	use({
+		"anuvyklack/pretty-fold.nvim",
+		config = function()
+			require("pretty-fold").setup()
+		end,
+	})
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
 		require("packer").sync()
