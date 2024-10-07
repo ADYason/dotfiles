@@ -113,6 +113,9 @@ return require("packer").startup(function(use)
 			require("pretty-fold").setup()
 		end,
 	})
+	use({
+		"LunarVim/bigfile.nvim",
+	})
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
 		require("packer").sync()
