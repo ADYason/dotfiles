@@ -103,13 +103,23 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias "k"="kubectl"
 alias "d"="sudo docker"
-alias "fix-ssh"="eval `ssh-agent -s` \ssh-add ~/.ssh/id_rsa"
 alias "z"="zellij --layout ~/.config/zellij/layout.kdl"
 alias "rfix"="ruff chech --fix --unsafe-fixes ."
-export PATH="/home/yaroslav/.local/bin:$PATH"
-export PYENV_ROOT="$HOME/.pyenv"
+
+# ssh-agent
+export SSH_AUTH_SOCK=/run/user/1000/ssh-agent.socket
+
+# go
+export PATH="/home/yaroslav/go/bin:/home/yaroslav/.local/bin:$PATH"
 export GOPRIVATE=git.apsolutions.ru
+
+# node
+source /usr/share/nvm/init-nvm.sh
+
+# python
+export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+# nvim
 cvim() { cd "$1" && nvim .;}
