@@ -73,17 +73,37 @@ require("mason-lspconfig").setup({
 				end,
 			})
 		end,
-		ruff_lsp = function()
-			require("lspconfig").ruff_lsp.setup({
-				init_options = {
-					settings = {
-						args = {},
-					},
-				},
-			})
-		end,
-	},
-})
+    gopls = function ()
+      require("lspconfig").gopls.setup{
+        settings = {
+            gopls = {
+                codelenses = {
+                    gc_details = true,
+                    generate = true,
+                    regenerate_cgo = true,
+                    run_govulncheck = true,
+                    test = true,
+                    tidy = true,
+                    upgrade_dependency = true,
+                    vendor = true,
+                },
+                annotations = {
+                    escape = true,
+                    inline = true,
+                    bounds = true,
+                },
+                analyses = {
+                    nilness = true,
+                    unusedparams = true,
+                    unusedwrite = true,
+                    useany = true,
+                },
+                staticcheck = true,
+            }
+        }
+      }
+    end
+ }})
 
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }

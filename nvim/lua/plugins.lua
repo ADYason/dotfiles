@@ -67,6 +67,8 @@ return require("packer").startup(function(use)
 	use({ "jose-elias-alvarez/null-ls.nvim" })
 	use({ "mfussenegger/nvim-dap", requires = { { "rcarriga/nvim-dap-ui" }, { "nvim-neotest/nvim-nio" } } })
 	use({ "leoluz/nvim-dap-go" })
+  use({ "ray-x/go.nvim" })
+  use({ "ray-x/guihua.lua" })
 	use({ "folke/todo-comments.nvim" })
 	use({
 		"stevearc/conform.nvim",
