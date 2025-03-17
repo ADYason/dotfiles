@@ -16,6 +16,7 @@ require("conform").setup({
 			"goimports",
 			"gofmt",
 		},
+		json = { "fixjson" },
 	},
 })
 vim.o.background = "dark"

@@ -24,9 +24,6 @@ lsp_zero.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "]d", function()
 		vim.diagnostic.goto_prev()
 	end, opts)
-	vim.keymap.set("n", "<leader>vca", function()
-		vim.lsp.buf.code_action()
-	end, opts)
 	vim.keymap.set("n", "<C-k>i", function()
 		vim.lsp.buf.references()
 	end, opts)
@@ -73,37 +70,38 @@ require("mason-lspconfig").setup({
 				end,
 			})
 		end,
-    gopls = function ()
-      require("lspconfig").gopls.setup{
-        settings = {
-            gopls = {
-                codelenses = {
-                    gc_details = true,
-                    generate = true,
-                    regenerate_cgo = true,
-                    run_govulncheck = true,
-                    test = true,
-                    tidy = true,
-                    upgrade_dependency = true,
-                    vendor = true,
-                },
-                annotations = {
-                    escape = true,
-                    inline = true,
-                    bounds = true,
-                },
-                analyses = {
-                    nilness = true,
-                    unusedparams = true,
-                    unusedwrite = true,
-                    useany = true,
-                },
-                staticcheck = true,
-            }
-        }
-      }
-    end
- }})
+		gopls = function()
+			require("lspconfig").gopls.setup({
+				settings = {
+					gopls = {
+						codelenses = {
+							gc_details = true,
+							generate = true,
+							regenerate_cgo = true,
+							run_govulncheck = true,
+							test = true,
+							tidy = true,
+							upgrade_dependency = true,
+							vendor = true,
+						},
+						annotations = {
+							escape = true,
+							inline = true,
+							bounds = true,
+						},
+						analyses = {
+							nilness = true,
+							unusedparams = true,
+							unusedwrite = true,
+							useany = true,
+						},
+						staticcheck = true,
+					},
+				},
+			})
+		end,
+	},
+})
 
 local cmp = require("cmp")
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
