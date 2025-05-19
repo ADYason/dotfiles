@@ -10,12 +10,9 @@ layout {
   tab name="k9s" {
     pane command="k9s"
   }
-  tab name="nvim"
-  tab name="another nvim"
-  tab name="taskwarrior" {
-    pane command="taskwarrior-tui"
-  }
   tab name="resources"{
     pane command="btop"
   }
+  tab name="nvim"
+  tab name="another nvim"
 }
