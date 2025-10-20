@@ -67,8 +67,8 @@ return require("packer").startup(function(use)
 	use({ "jose-elias-alvarez/null-ls.nvim" })
 	use({ "mfussenegger/nvim-dap", requires = { { "rcarriga/nvim-dap-ui" }, { "nvim-neotest/nvim-nio" } } })
 	use({ "leoluz/nvim-dap-go" })
-  use({ "ray-x/go.nvim" })
-  use({ "ray-x/guihua.lua" })
+	use({ "ray-x/go.nvim" })
+	use({ "ray-x/guihua.lua" })
 	use({ "folke/todo-comments.nvim" })
 	use({
 		"stevearc/conform.nvim",
@@ -117,6 +117,16 @@ return require("packer").startup(function(use)
 	})
 	use({
 		"LunarVim/bigfile.nvim",
+	})
+	use({
+		"amitds1997/remote-nvim.nvim",
+		version = "*",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+		config = true,
 	})
 	-- Put this at the end after all plugins
 	if packer_bootstrap then

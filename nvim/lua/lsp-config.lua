@@ -36,22 +36,24 @@ lsp_zero.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 end)
 
--- source https://github.com/neovim/nvim-lspconfig/issues/500#issuecomment-877293306
-local function get_python_path(workspace)
-	-- Use activated virtualenv.
+local function get_python_path()
 	if vim.env.VIRTUAL_ENV then
 		return path.join(vim.env.VIRTUAL_ENV, "bin", "python")
 	end
 
-	-- Find and use virtualenv via poetry in workspace directory.
-	local match = vim.fn.glob(path.join(workspace, "poetry.lock"))
+	local match = vim.fn.glob(path.join(vim.fn.getcwd(), "uv.lock"))
 	if match ~= "" then
-		local venv = vim.fn.trim(vim.fn.system("poetry env info -p 2>/dev/null"))
+		local venv = ".venv"
 		return path.join(venv, "bin", "python")
 	end
 
-	-- Fallback to system Python.
-	return vim.fn.exepath("python3") or vim.fn.exepath("python") or "python"
+	match = vim.fn.glob(path.join(vim.fn.getcwd(), "poetry.lock"))
+	if match ~= "" then
+		local venv = vim.fn.trim(vim.fn.system("poetry env info -p 2> /dev/null"))
+		return path.join(venv, "bin", "python")
+	end
+
+	return vim.fn.exepath("python") or vim.fn.exepath("python3") or "python"
 end
 
 require("mason").setup({})
@@ -59,47 +61,36 @@ require("mason-lspconfig").setup({
 	ensure_installed = { "pyright" },
 	handlers = {
 		lsp_zero.default_setup,
-		lua_ls = function()
-			local lua_opts = lsp_zero.nvim_lua_ls()
-			require("lspconfig").lua_ls.setup(lua_opts)
-		end,
-		pyright = function()
-			require("lspconfig").pyright.setup({
-				before_init = function(_, config)
-					config.settings.python.pythonPath = get_python_path(config.root_dir)
-				end,
-			})
-		end,
-		gopls = function()
-			require("lspconfig").gopls.setup({
-				settings = {
-					gopls = {
-						codelenses = {
-							gc_details = true,
-							generate = true,
-							regenerate_cgo = true,
-							run_govulncheck = true,
-							test = true,
-							tidy = true,
-							upgrade_dependency = true,
-							vendor = true,
-						},
-						annotations = {
-							escape = true,
-							inline = true,
-							bounds = true,
-						},
-						analyses = {
-							nilness = true,
-							unusedparams = true,
-							unusedwrite = true,
-							useany = true,
-						},
-						staticcheck = true,
+		vim.lsp.config("lua_ls", {}),
+		vim.lsp.config("pyright", {
+			before_init = function(_, config)
+				config.settings.python.pythonPath = get_python_path()
+			end,
+		}),
+		vim.lsp.config("gopls", {
+			settings = {
+				gopls = {
+					codelenses = {
+						gc_details = true,
+						generate = true,
+						regenerate_cgo = true,
+						run_govulncheck = true,
+						test = true,
+						tidy = true,
+						upgrade_dependency = true,
+						vendor = true,
 					},
+					analyses = {
+						nilness = true,
+						unusedparams = true,
+						unusedwrite = true,
+						useany = true,
+					},
+					staticcheck = true,
 				},
-			})
-		end,
+			},
+		}),
+		vim.lsp.config("lspconfig", {}),
 	},
 })
 
@@ -127,7 +118,7 @@ cmp.setup({
 	}),
 })
 
-cmp.setup.cmdline({ "/", "?" }, {
+cmp.setup.cmdline("/", {
 	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
 		{ name = "buffer" },

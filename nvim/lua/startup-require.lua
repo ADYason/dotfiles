@@ -11,11 +11,8 @@ require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
 		python = { "ruff_fix", "ruff_format" },
-		javascript = { { "prettierd", "prettier" } },
-		go = {
-			"goimports",
-			"gofmt",
-		},
+		javascript = { "prettierd", "prettier" },
+		go = { "goimports", "gofmt" },
 		json = { "fixjson" },
 	},
 })
@@ -76,3 +73,4 @@ require("bigfile").setup({
 		"filetype",
 	},
 })
+require("remote-nvim").setup()
