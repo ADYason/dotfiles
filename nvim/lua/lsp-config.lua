@@ -63,7 +63,6 @@ require("mason-lspconfig").setup({
 		lsp_zero.default_setup,
 		vim.lsp.config("lua_ls", {}),
 		vim.lsp.config("pyright", {
-			root_dir = vim.fn.getcwd(),
 			settings = { python = { analysis = { typeCheckingMode = "strict" } } },
 			before_init = function(_, config)
 				config.settings.python.pythonPath = get_python_path()
