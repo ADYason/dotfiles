@@ -73,4 +73,4 @@ require("bigfile").setup({
 		"filetype",
 	},
 })
-require("remote-nvim").setup()
+require("refactoring").setup()

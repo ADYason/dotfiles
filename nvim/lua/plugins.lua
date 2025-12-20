@@ -128,6 +128,15 @@ return require("packer").startup(function(use)
 		},
 		config = true,
 	})
+	-- Refactoring
+	use({
+		"ThePrimeagen/refactoring.nvim",
+		version = "*",
+		requires = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-treesitter/nvim-treesitter" },
+		},
+	})
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
 		require("packer").sync()
