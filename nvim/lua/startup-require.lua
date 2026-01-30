@@ -34,11 +34,7 @@ require("vscode").setup({
 require("vscode").load()
 require("nvim-tree").setup()
 require("toggleterm").setup({})
-require("gitblame").setup({
-	enabled = false,
-	message_when_not_committed = "	Закоммить, собака!",
-})
-require("vgit").setup({ settings = { live_blame = { enabled = false }, authorship_code_lens = { enabled = false } } })
+require("vgit").setup({ settings = { live_blame = { enabled = true }, authorship_code_lens = { enabled = false } } })
 
 local highlight = {
 	"Green",

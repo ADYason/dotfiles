@@ -100,7 +100,6 @@ return require("packer").startup(function(use)
 			require("nvim-autopairs").setup({})
 		end,
 	})
-	use("f-person/git-blame.nvim")
 	use({ "mg979/vim-visual-multi", branch = "master" })
 	use({
 		"tanvirtin/vgit.nvim",
