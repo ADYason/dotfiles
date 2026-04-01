@@ -49,9 +49,9 @@ gsettings set org.gnome.desktop.interface gtk-theme "Adwaita$SWITCHTO"
 
 #change the background image and be cool about it ;)
 if [ -z $SET_BG ]; then
-    swww img ~/.config/HyprV/backgrounds/$VER'-background'$SWITCHTO.jpg --transition-fps 60 --transition-type wipe --transition-duration 2
+    awww img ~/.config/HyprV/backgrounds/$VER'-background'$SWITCHTO.jpg --transition-fps 60 --transition-type wipe --transition-duration 2
 else
-    swww img $SET_BG --transition-fps 60 --transition-type wipe --transition-duration 2
+    awww img $SET_BG --transition-fps 60 --transition-type wipe --transition-duration 2
 fi
 
 #update the sddm image
