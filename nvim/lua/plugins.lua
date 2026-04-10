@@ -1,143 +1,120 @@
-local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git", "clone", "--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable",
+		lazypath,
+	})
 end
-local packer_bootstrap = ensure_packer()
+vim.opt.rtp:prepend(lazypath)
 
-return require("packer").startup(function(use)
-	use("wbthomason/packer.nvim")
-	use("echasnovski/mini.statusline")
-	use("folke/lsp-colors.nvim")
-	use({
+require("lazy").setup({
+	"echasnovski/mini.statusline",
+	"folke/lsp-colors.nvim",
+	{
 		"nvim-treesitter/nvim-treesitter",
-		run = function()
-			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-			ts_update()
-		end,
-	})
-	use("nvim-treesitter/nvim-treesitter-context")
-	use("ThePrimeagen/harpoon")
-	use({
+		build = ":TSUpdate",
+		branch = "main",
+		lazy = false,
+	},
+	"nvim-treesitter/nvim-treesitter-context",
+	"ThePrimeagen/harpoon",
+	{
 		"kdheepak/tabline.nvim",
-		requires = { { "hoob3rt/lualine.nvim", opt = true } },
-	})
-	use({
+		dependencies = { "hoob3rt/lualine.nvim" },
+	},
+	{
 		"nvim-tree/nvim-tree.lua",
-		requires = {
-			"nvim-tree/nvim-web-devicons",
-		},
-	})
-	use("Mofiqul/vscode.nvim")
-	-- telescope
-	use({
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
+	"Mofiqul/vscode.nvim",
+	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.x",
-		requires = { { "nvim-lua/plenary.nvim" }, { "nvim-telescope/telescope-fzf-native.nvim", run = "make" } },
-	})
-	-- vim-startuptime
-	use({
-		"dstein64/vim-startuptime",
-	})
-	-- lsp-zero
-	use({
+		branch = "0.1.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		},
+	},
+	"dstein64/vim-startuptime",
+	{
 		"VonHeikemen/lsp-zero.nvim",
 		branch = "v3.x",
-		requires = {
-			--- Uncomment these if you want to manage LSP servers from neovim
-			{ "williamboman/mason.nvim" },
-			{ "williamboman/mason-lspconfig.nvim" },
-			-- LSP Support
-			{ "neovim/nvim-lspconfig" },
-			-- Autocompletion
-			{ "hrsh7th/nvim-cmp" },
-			{ "hrsh7th/cmp-nvim-lsp" },
-			{ "hrsh7th/cmp-buffer" },
-			{ "hrsh7th/cmp-path" },
-			{ "hrsh7th/cmp-cmdline" },
-			{ "SergioRibera/cmp-dotenv" },
-			{ "L3MON4D3/LuaSnip" },
+		dependencies = {
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+			"neovim/nvim-lspconfig",
+			"hrsh7th/nvim-cmp",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"SergioRibera/cmp-dotenv",
+			"L3MON4D3/LuaSnip",
 		},
-	})
-	use({ "jose-elias-alvarez/null-ls.nvim" })
-	use({ "mfussenegger/nvim-dap", requires = { { "rcarriga/nvim-dap-ui" }, { "nvim-neotest/nvim-nio" } } })
-	use({ "leoluz/nvim-dap-go" })
-	use({ "ray-x/go.nvim" })
-	use({ "ray-x/guihua.lua" })
-	use({ "folke/todo-comments.nvim" })
-	use({
-		"stevearc/conform.nvim",
-		config = function()
-			require("conform").setup()
-		end,
-	})
-	use({
+	},
+	"jose-elias-alvarez/null-ls.nvim",
+	{
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			"nvim-neotest/nvim-nio",
+		},
+	},
+	"leoluz/nvim-dap-go",
+	{
+		"ray-x/go.nvim",
+		dependencies = { "ray-x/guihua.lua" },
+	},
+	"folke/todo-comments.nvim",
+	"stevearc/conform.nvim",
+	{
 		"nvim-neotest/neotest",
-		requires = {
+		dependencies = {
 			"nvim-neotest/nvim-nio",
 			"nvim-lua/plenary.nvim",
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-neotest/neotest-python",
 		},
-	})
-	use({
-		"akinsho/toggleterm.nvim",
-		tag = "*",
-		config = function()
-			require("toggleterm").setup()
-		end,
-	})
-	use({
+	},
+	"akinsho/toggleterm.nvim",
+	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = function()
 			require("nvim-autopairs").setup({})
 		end,
-	})
-	use({ "mg979/vim-visual-multi", branch = "master" })
-	use({
+	},
+	{ "mg979/vim-visual-multi", branch = "master" },
+	{
 		"tanvirtin/vgit.nvim",
-		requires = {
-			"nvim-lua/plenary.nvim",
-		},
-	}) -- Automatically set up your configuration after cloning packer.nvim
-	use("lukas-reineke/indent-blankline.nvim")
-	use({
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
+	"lukas-reineke/indent-blankline.nvim",
+	{
 		"anuvyklack/pretty-fold.nvim",
 		config = function()
 			require("pretty-fold").setup()
 		end,
-	})
-	use({
-		"LunarVim/bigfile.nvim",
-	})
-	use({
+	},
+	"LunarVim/bigfile.nvim",
+	{
 		"amitds1997/remote-nvim.nvim",
 		version = "*",
-		requires = {
+		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
 			"nvim-telescope/telescope.nvim",
 		},
-		config = true,
-	})
-	-- Refactoring
-	use({
+	},
+	{
 		"ThePrimeagen/refactoring.nvim",
 		version = "*",
-		requires = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-treesitter/nvim-treesitter" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
 		},
-	})
-	-- Put this at the end after all plugins
-	if packer_bootstrap then
-		require("packer").sync()
-	end
-end)
+	},
+})
